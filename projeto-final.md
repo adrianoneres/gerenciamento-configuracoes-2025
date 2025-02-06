@@ -1,6 +1,6 @@
 # Projeto final
 
-Em grupos de **até 4 pessoas**, escolham uma ferramenta para gerenciamento de configurações.
+Em grupos de **até 2 pessoas**, escolham uma ferramenta para gerenciamento de configurações.
 
 ## 1. Requisitos
 - Seu projeto deverá ser entregue no formato de link de repositório público do GitHub, a ser enviado para o email `ah.driano@gmail.com` com o título `Projeto Final - GdC 2025` até o dia 20/02/2025. Este repositório deve conter o código da solução (se houver) e um arquivo `README.md` conforme o exemplo em anexo.
@@ -36,8 +36,6 @@ Alguns exemplos de tecnologias:
 - **Integrantes:**
   - Nome do integrante 1
   - Nome do integrante 2
-  - Nome do integrante 3
-  - Nome do integrante 4
 
 ## 1. Descrição da tecnologia
 
