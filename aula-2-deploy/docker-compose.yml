@@ -1,0 +1,54 @@
+services:
+  postgresql-gdc:
+    container_name: postgresql-gdc
+    image: postgres:17.2
+    restart: always
+    environment:
+      POSTGRES_DB: gdc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - postgresql-gdc:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - gdc-network
+
+  pgadmin-gdc:
+    image: dpage/pgadmin4:9.0.0
+    container_name: pgadmin-gdc
+    restart: always
+    depends_on:
+      - postgresql-gdc
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@email.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 8090:80
+    volumes:
+      - pgadmin-gdc:/var/lib/pgadmin
+    networks:
+      - gdc-network
+
+  app-gdc:
+    image: app-gdc
+    container_name: app-gdc
+    restart: always
+    build: ./app/
+    depends_on:
+      - postgresql-gdc
+    ports:
+      - 3000:3000
+    networks:
+      - gdc-network
+      
+networks:
+  gdc-network:
+    driver: bridge
+
+volumes:
+  postgresql-gdc:
+    external: true
+  pgadmin-gdc:
+    external: true
