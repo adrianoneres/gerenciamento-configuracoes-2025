@@ -24,8 +24,6 @@ app.get('/students', async (request, reply) => {
             message: "esta e uma requisicao muito lenta"
         }
 
-        span.setAttribute('http.response_payload', JSON.stringify(payload));
-
         return reply
             .status(202)
             .send(payload);
@@ -41,8 +39,6 @@ app.get('/students', async (request, reply) => {
             students,
             message: 'esta e a requisicao mais rapida'
         }
-
-        span.setAttribute('http.response_payload', JSON.stringify(payload));
 
         return reply.send(payload)
     }
