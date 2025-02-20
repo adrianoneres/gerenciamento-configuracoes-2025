@@ -1,3 +1,8 @@
+import { initializeTracing } from './tracing.js';
+await initializeTracing();
+
+import { trace, context } from '@opentelemetry/api';
+
 import Fastify from 'fastify';
 import { connect, seedDb } from './db.js'
 const PORT = 8080;
@@ -8,6 +13,8 @@ await seedDb(_db)
 
 let counter = 0
 app.get('/students', async (request, reply) => {
+    const span = trace.getSpan(context.active());
+
     ++counter;
     if (counter === 1) {
         setTimeout(() => console.log('Finalizou'), 5000);
@@ -24,6 +31,8 @@ app.get('/students', async (request, reply) => {
             message: "esta e uma requisicao muito lenta"
         }
 
+        span.setAttribute('http.response_payload', JSON.stringify(payload));
+
         return reply
             .status(202)
             .send(payload);
@@ -39,6 +48,8 @@ app.get('/students', async (request, reply) => {
             students,
             message: 'esta e a requisicao mais rapida'
         }
+
+        span.setAttribute('http.response_payload', JSON.stringify(payload));
 
         return reply.send(payload)
     }

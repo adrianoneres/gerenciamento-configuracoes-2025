@@ -7,12 +7,14 @@ import { KnexInstrumentation } from '@opentelemetry/instrumentation-knex';
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR);
 
 const sdk = new NodeSDK({
-  serviceName: undefined,
+  serviceName: 'students-api',
   traceExporter: new OTLPTraceExporter({
-    url: undefined,
-    compression: undefined
+    url: 'http://localhost:4317',
+    compression: 'gzip'
   }),
   instrumentations: [
+    new HttpInstrumentation(),
+    new KnexInstrumentation()
   ]
 })
 
